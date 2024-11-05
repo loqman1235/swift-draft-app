@@ -14,6 +14,10 @@ const CreateEmailForm = () => {
       username: "",
       receiverName: "",
       description: "",
+      lang: "english",
+      tone: "formal",
+      mood: "neutral",
+      length: "medium",
     },
   });
 
