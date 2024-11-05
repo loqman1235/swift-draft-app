@@ -10,7 +10,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex h-[var(--navbar-height)] w-full items-center justify-between bg-foreground px-5">
+    <header className="sticky top-0 flex h-[var(--navbar-height)] w-full items-center justify-between bg-foreground px-5">
       {/* PLAN INFO */}
       <div className="flex items-center gap-2">
         <span className="font-medium">Plan</span>

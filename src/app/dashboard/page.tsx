@@ -13,7 +13,6 @@ const DashboardPage = () => {
         </p>
       </div>
 
-      {/* CREATE EMAIL FORM HERE */}
       <CreateEmailForm />
     </div>
   );

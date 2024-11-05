@@ -5,9 +5,9 @@ const DashboardLayout = ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <main className="flex h-screen">
+    <main className="flex">
       <Sidebar />
-      <div className="flex-grow">
+      <div className="w-[calc(100%-var(--sidebar-width))]">
         <Navbar />
         <div className="p-5">{children}</div>
       </div>

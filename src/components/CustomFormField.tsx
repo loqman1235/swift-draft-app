@@ -9,6 +9,7 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
+import { Textarea } from "./ui/textarea";
 
 type CustomFormFieldProps<T extends FieldValues> = {
   form: UseFormReturn<T>;
@@ -17,6 +18,7 @@ type CustomFormFieldProps<T extends FieldValues> = {
   placeholder?: string;
   description?: string;
   className?: string;
+  isTextArea?: boolean;
 };
 
 const CustomFormField = <T extends FieldValues>({
@@ -26,20 +28,29 @@ const CustomFormField = <T extends FieldValues>({
   placeholder,
   description,
   className,
+  isTextArea = false,
 }: CustomFormFieldProps<T>) => {
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="w-full">
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input
-              className={cn("bg-foreground", className)}
-              placeholder={placeholder || ""}
-              {...field}
-            />
+            {isTextArea ? (
+              <Textarea
+                className={cn("bg-foreground", className)}
+                placeholder={placeholder || ""}
+                {...field}
+              />
+            ) : (
+              <Input
+                className={cn("bg-foreground", className)}
+                placeholder={placeholder || ""}
+                {...field}
+              />
+            )}
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
 
