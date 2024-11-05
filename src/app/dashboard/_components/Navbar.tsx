@@ -14,7 +14,9 @@ const Navbar = () => {
       {/* PLAN INFO */}
       <div className="flex items-center gap-2">
         <span className="font-medium">Plan</span>
-        <Badge variant="secondary">Free</Badge>
+        <Badge className="uppercase" variant="secondary">
+          Free
+        </Badge>
       </div>
 
       {/* USER AVATAR */}
