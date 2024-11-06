@@ -54,7 +54,7 @@ const ReplyToEmailForm = () => {
           form={form}
           label="Received Email"
           name="receivedEmail"
-          placeholder="Paste the email text here"
+          placeholder="Paste the received email text here"
           isTextArea
           className="min-h-[120px] resize-none"
           description="Paste the email/conversation text that you need to respond to."

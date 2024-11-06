@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Brand = () => {
   return (
-    <Link href="/" className="flex items-center gap-5">
+    <Link href="/" className="flex items-center gap-2">
       <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-white">
         <FeatherIcon className="size-4" />
       </span>

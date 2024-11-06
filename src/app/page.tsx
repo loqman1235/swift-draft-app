@@ -1,8 +1,12 @@
+import HeroSection from "./_components/HeroSection";
+import HomeNavbar from "./_components/HomeNavbar";
+
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <>
+      <HomeNavbar />
+      <HeroSection />
+    </>
   );
 };
 
