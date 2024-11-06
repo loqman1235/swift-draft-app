@@ -123,7 +123,7 @@ const ReplyToEmailForm = () => {
         </div>
 
         <Button className="w-fit" size="lg" type="submit">
-          Write Email
+          Write Reply
         </Button>
       </form>
     </Form>

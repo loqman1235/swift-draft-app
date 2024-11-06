@@ -7,7 +7,7 @@ const DashboardLayout = ({
   return (
     <main className="flex">
       <Sidebar />
-      <div className="w-[calc(100%-var(--sidebar-width))]">
+      <div className="w-full md:w-[calc(100%-var(--sidebar-width))]">
         <Navbar />
         <div className="p-5">{children}</div>
       </div>
