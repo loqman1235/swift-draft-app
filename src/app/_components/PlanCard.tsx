@@ -1,15 +1,33 @@
-import { Button } from "@/components/ui/button";
-import { plans } from "./PricingSection";
-import { formatMoney } from "@/lib/utils";
+import { cn, formatMoney } from "@/lib/utils";
 import { CheckIcon } from "lucide-react";
-import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { plans } from "@/data";
+import PaymentLink from "./PaymentLink";
+import { auth } from "@/auth";
 
-const PlanCard = ({ plan }: { plan: (typeof plans)[number] }) => {
+type PlanCardProps = {
+  plan: (typeof plans)[number];
+  className?: string;
+};
+
+const PlanCard = async ({ plan, className }: PlanCardProps) => {
+  const session = await auth();
+
   return (
-    <div className="w-full rounded-md border border-border bg-foreground p-5">
+    <div
+      className={cn(
+        "w-full rounded-md border border-border bg-foreground p-5",
+        className,
+      )}
+    >
       <div className="flex flex-col gap-2 border-b border-b-border pb-5">
         <div className="flex flex-col gap-2">
-          <h3 className="text-lg font-bold">{plan.name}</h3>
+          <div className="flex w-full items-center justify-between">
+            <h3 className="text-lg font-bold">{plan.name}</h3>
+            <Badge variant="secondary">
+              {plan.isPopular && "Most Popular"}
+            </Badge>
+          </div>
           <p className="text-3xl font-bold tracking-tight">
             {formatMoney(plan.price)}{" "}
             <span className="text-sm font-normal tracking-normal text-muted-foreground">
@@ -18,9 +36,13 @@ const PlanCard = ({ plan }: { plan: (typeof plans)[number] }) => {
           </p>
           <p className="text-sm text-muted-foreground">{plan.description}</p>
         </div>
-        <Button size="lg" className="w-full" asChild>
-          <Link href={plan.href || "#"}>Get Started</Link>
-        </Button>
+        <PaymentLink
+          href={plan.href}
+          paymentLink={plan.paymentLink}
+          text="Get Started"
+          isLoggedIn={!!session?.user}
+          email={session?.user?.email || ""}
+        />
       </div>
       <div className="flex flex-col gap-3 pt-5">
         {plan.features.map((feature) => (
@@ -29,7 +51,7 @@ const PlanCard = ({ plan }: { plan: (typeof plans)[number] }) => {
             className="flex items-center gap-2 text-sm font-medium"
           >
             <CheckIcon className="size-4 text-primary" />
-            <span>{feature}</span>
+            <span className="font-normal">{feature}</span>
           </div>
         ))}
       </div>

@@ -77,7 +77,7 @@ export const signInAction = async (
     await signIn("credentials", {
       email,
       password,
-      redirectTo: "/dashboard",
+      redirectTo: "/callback",
     });
   } catch (error) {
     if (error instanceof AuthError) {
@@ -95,12 +95,12 @@ export const signInAction = async (
 
 export const githubSignInAction = async () => {
   await signIn("github", {
-    redirectTo: "/dashboard",
+    redirectTo: "/callback",
   });
 };
 
 export const googleSignInAction = async () => {
   await signIn("google", {
-    redirectTo: "/dashboard",
+    redirectTo: "/callback",
   });
 };
