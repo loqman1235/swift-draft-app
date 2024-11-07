@@ -27,7 +27,7 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --radius: 0.8rem;
 
     /* SIZES */
     --sidebar-width: 280px;
@@ -71,5 +71,11 @@
   }
   body {
     @apply bg-background text-text-primary;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply inline-block bg-gradient-to-r from-[#4A90E2] to-[#4AD3E2] bg-clip-text text-transparent;
   }
 }

@@ -1,13 +1,14 @@
+import { auth } from "@/auth";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import UserAvatar from "@/components/UserAvatar";
+// import UserAvatar from "@/components/UserAvatar";
 import { ZapIcon } from "lucide-react";
 
-const Navbar = () => {
-  const user = {
-    name: "John Doe",
-    avatar: "/avatar.jpg",
-  };
+const Navbar = async () => {
+  const session = await auth();
+
+  if (!session || !session.user) return null;
 
   return (
     <header className="sticky top-0 z-50 flex h-[var(--navbar-height)] w-full items-center justify-between bg-foreground px-5">
@@ -25,7 +26,11 @@ const Navbar = () => {
           <ZapIcon className="size-5" />
           Upgrade
         </Button>
-        <UserAvatar user={user} />
+
+        <UserAvatar
+          name={session.user.name || ""}
+          avatar={session.user.image || ""}
+        />
       </div>
     </header>
   );

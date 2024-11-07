@@ -6,26 +6,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { LogOutIcon, SettingsIcon } from "lucide-react";
+import { SettingsIcon } from "lucide-react";
 import Link from "next/link";
+import LogoutBtn from "./LogoutBtn";
 
 type UserAvatarProps = {
-  user: {
-    avatar?: string;
-    name: string;
-  };
+  name: string;
+  avatar: string;
 };
 
-const UserAvatar = ({ user }: UserAvatarProps) => {
+const UserAvatar = ({ name, avatar }: UserAvatarProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full outline-none">
         <Avatar>
-          <AvatarImage
-            src={user.avatar}
-            className="h-full w-full object-cover"
-          />
-          <AvatarFallback>{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+          <AvatarImage src={avatar} className="h-full w-full object-cover" />
+          <AvatarFallback>{name.slice(0, 2).toUpperCase()}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-[180px]" align="end">
@@ -36,10 +32,7 @@ const UserAvatar = ({ user }: UserAvatarProps) => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <button className="w-full">
-            <LogOutIcon />
-            <span>Logout</span>
-          </button>
+          <LogoutBtn />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
