@@ -12,6 +12,7 @@ export const plans = [
       "Limited to one primary language",
       "500 characters per email",
     ],
+    href: "/sign-up",
   },
   {
     name: "Monthly",
@@ -24,6 +25,7 @@ export const plans = [
       " Access to 3 major languages",
       "1000 characters per email",
     ],
+    href: process.env.STRIPE_MONTHLY_PLAN_LINK,
   },
   {
     name: "Yearly",
@@ -37,6 +39,7 @@ export const plans = [
       "Unlimited characters per email",
       "Early Access to New Features",
     ],
+    href: process.env.STRIPE_YEARLY_PLAN_LINK,
   },
 ] as const;
 
@@ -46,7 +49,7 @@ const PricingSection = () => {
       <div className="mx-auto flex max-w-7xl flex-col gap-10">
         <div className="w-full text-center">
           <h1 className="text-2xl font-bold tracking-tight">Plans & Pricing</h1>
-          <p className="text-text-muted">
+          <p className="text-pretty text-text-muted">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </p>
         </div>

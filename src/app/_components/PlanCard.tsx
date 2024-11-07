@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { plans } from "./PricingSection";
 import { formatMoney } from "@/lib/utils";
 import { CheckIcon } from "lucide-react";
+import Link from "next/link";
 
 const PlanCard = ({ plan }: { plan: (typeof plans)[number] }) => {
   return (
@@ -11,14 +12,14 @@ const PlanCard = ({ plan }: { plan: (typeof plans)[number] }) => {
           <h3 className="text-lg font-bold">{plan.name}</h3>
           <p className="text-3xl font-bold tracking-tight">
             {formatMoney(plan.price)}{" "}
-            <span className="text-sm font-normal text-muted-foreground">
+            <span className="text-sm font-normal tracking-normal text-muted-foreground">
               {plan.period}
             </span>
           </p>
           <p className="text-sm text-muted-foreground">{plan.description}</p>
         </div>
-        <Button size="lg" className="w-full">
-          Get Started
+        <Button size="lg" className="w-full" asChild>
+          <Link href={plan.href || "#"}>Get Started</Link>
         </Button>
       </div>
       <div className="flex flex-col gap-3 pt-5">
