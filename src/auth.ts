@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { type DefaultSession } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -7,6 +7,15 @@ import { encode as defaultEncode } from "next-auth/jwt";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import prisma from "./lib/prisma";
+import { Plan } from "@prisma/client";
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      plan: Plan;
+    } & DefaultSession["user"];
+  }
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),

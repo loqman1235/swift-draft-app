@@ -16,16 +16,18 @@ const Navbar = async () => {
       <div className="flex items-center gap-2">
         <span className="font-medium">Plan</span>
         <Badge className="uppercase" variant="secondary">
-          Free
+          {session.user.plan}
         </Badge>
       </div>
 
       {/* USER AVATAR */}
       <div className="flex items-center gap-5">
-        <Button>
-          <ZapIcon className="size-5" />
-          Upgrade
-        </Button>
+        {session.user.plan === "free" && (
+          <Button>
+            <ZapIcon className="size-5" />
+            Upgrade
+          </Button>
+        )}
 
         <UserAvatar
           name={session.user.name || ""}

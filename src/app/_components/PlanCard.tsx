@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { plans } from "@/data";
 import PaymentLink from "./PaymentLink";
 import { auth } from "@/auth";
+import prisma from "@/lib/prisma";
+import { Button } from "@/components/ui/button";
 
 type PlanCardProps = {
   plan: (typeof plans)[number];
@@ -12,6 +14,18 @@ type PlanCardProps = {
 
 const PlanCard = async ({ plan, className }: PlanCardProps) => {
   const session = await auth();
+  const user = await prisma.user.findUnique({
+    where: {
+      id: session?.user?.id || "",
+    },
+    include: {
+      subscription: {
+        select: {
+          period: true,
+        },
+      },
+    },
+  });
 
   return (
     <div
@@ -36,13 +50,19 @@ const PlanCard = async ({ plan, className }: PlanCardProps) => {
           </p>
           <p className="text-sm text-muted-foreground">{plan.description}</p>
         </div>
-        <PaymentLink
-          href={plan.href}
-          paymentLink={plan.paymentLink}
-          text="Get Started"
-          isLoggedIn={!!session?.user}
-          email={session?.user?.email || ""}
-        />
+        {user?.subscription?.period === plan.name.toLocaleLowerCase() ? (
+          <Button className="w-full" disabled>
+            Current Plan
+          </Button>
+        ) : (
+          <PaymentLink
+            href={plan.href}
+            paymentLink={plan.paymentLink}
+            text="Get Started"
+            isLoggedIn={!!session?.user}
+            email={session?.user?.email || ""}
+          />
+        )}
       </div>
       <div className="flex flex-col gap-3 pt-5">
         {plan.features.map((feature) => (

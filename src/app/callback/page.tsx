@@ -14,6 +14,8 @@ const CallbackPage = () => {
     if (session && session.user && stripePaymentLink) {
       localStorage.removeItem("stripePaymentLink");
       router.push(stripePaymentLink + `?prefilled_email=${session.user.email}`);
+    } else if (session && session.user) {
+      router.push("/dashboard");
     }
   }, [session, router]);
 
