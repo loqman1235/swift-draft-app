@@ -27,10 +27,13 @@ const PlanCard = async ({ plan, className }: PlanCardProps) => {
     },
   });
 
+  const isCurrentPlan =
+    user?.subscription?.period === plan.name.toLocaleLowerCase();
+
   return (
     <div
       className={cn(
-        "w-full rounded-md border border-border bg-foreground p-5",
+        `w-full rounded-md border bg-foreground p-5 ${isCurrentPlan ? "border-primary" : "border-border"}`,
         className,
       )}
     >
@@ -50,7 +53,7 @@ const PlanCard = async ({ plan, className }: PlanCardProps) => {
           </p>
           <p className="text-sm text-muted-foreground">{plan.description}</p>
         </div>
-        {user?.subscription?.period === plan.name.toLocaleLowerCase() ? (
+        {isCurrentPlan ? (
           <Button className="w-full" disabled>
             Current Plan
           </Button>
