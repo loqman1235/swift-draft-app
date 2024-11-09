@@ -9,19 +9,19 @@
     --card-foreground: 232 29% 15%;
     --popover: 0 0% 100%;
     --popover-foreground: 232 29% 15%;
-    --primary: 212 72% 59%;
+    --primary: 13 89% 61%;
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
-    --secondary-foreground: 212 72% 59%;
+    --secondary-foreground: 13 89% 61%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
     --accent: 0 0% 96.1%;
-    --accent-foreground: 212 72% 59%;
+    --accent-foreground: 13 89% 61%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
-    --ring: 212 72% 59%;
+    --ring: 13 89% 61%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -36,6 +36,10 @@
     /* TEXTS */
     --text-primary: 232 29% 15%;
     --text-muted: 216 21% 54%;
+
+    /* GRADIENTS */
+    --gradient-primary: #f46b45;
+    --gradient-secondary: #eea849;
   }
   .dark {
     --background: 232 29% 15%;
@@ -45,7 +49,7 @@
     --popover: 232 29% 15%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
-    --primary-foreground: 212 72% 59%;
+    --primary-foreground: 13 89% 61%;
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
@@ -76,6 +80,6 @@
 
 @layer utilities {
   .text-gradient {
-    @apply inline-block bg-gradient-to-r from-[#4A90E2] to-[#4AD3E2] bg-clip-text text-transparent;
+    @apply inline-block bg-gradient-to-r from-[var(--gradient-primary)] to-[var(--gradient-secondary)] bg-clip-text text-transparent;
   }
 }

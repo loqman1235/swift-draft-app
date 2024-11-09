@@ -15,7 +15,7 @@ const Navbar = async () => {
       {/* PLAN INFO */}
       <div className="flex items-center gap-2">
         <span className="font-medium">Plan</span>
-        <Badge className="uppercase" variant="secondary">
+        <Badge className="bg-primary/10 uppercase" variant="secondary">
           {session.user.plan}
         </Badge>
       </div>

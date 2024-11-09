@@ -41,7 +41,7 @@ const PlanCard = async ({ plan, className }: PlanCardProps) => {
         <div className="flex flex-col gap-2">
           <div className="flex w-full items-center justify-between">
             <h3 className="text-lg font-bold">{plan.name}</h3>
-            <Badge variant="secondary">
+            <Badge className="bg-primary/10" variant="secondary">
               {plan.isPopular && "Most Popular"}
             </Badge>
           </div>
@@ -73,7 +73,9 @@ const PlanCard = async ({ plan, className }: PlanCardProps) => {
             key={feature}
             className="flex items-center gap-2 text-sm font-medium"
           >
-            <CheckIcon className="size-4 text-primary" />
+            <span className="flex items-center justify-center rounded-full bg-primary p-0.5">
+              <CheckIcon className="size-3 text-white" />
+            </span>
             <span className="font-normal">{feature}</span>
           </div>
         ))}

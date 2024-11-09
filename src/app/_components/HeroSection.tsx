@@ -5,9 +5,9 @@ const HeroSection = () => {
   return (
     <section className="flex h-[calc(100vh-var(--navbar-height))] flex-col items-center justify-center gap-4 p-10 text-center">
       <h1 className="text-pretty text-4xl font-black tracking-tight md:text-5xl">
-        <span className="text-primary">Unlock</span> the Power of AI to
+        <span className="text-gradient">Unlock</span> the Power of AI to
         Instantly <br />
-        Create <span className="text-primary">Professional</span> Emails
+        Create <span className="text-gradient">Professional</span> Emails
       </h1>
       <p className="text-pretty text-base text-text-muted md:text-lg">
         Effortlessly generate professional emails tailored to your needs with
