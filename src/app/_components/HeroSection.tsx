@@ -9,12 +9,16 @@ const HeroSection = () => {
         Instantly <br />
         Create <span className="text-gradient">Professional</span> Emails
       </h1>
-      <p className="text-pretty text-base text-muted-foreground md:text-lg">
+      <p className="text-pretty text-base md:text-lg">
         Effortlessly generate professional emails tailored to your needs with
         the power of AI.
       </p>
-      <Button className="py-6 text-base md:text-lg" size="lg" asChild>
-        <Link href="/signup">Let&apos;s Get Started</Link>
+      <Button
+        className="rounded-full py-6 text-base md:text-lg"
+        size="lg"
+        asChild
+      >
+        <Link href="/signup">Sign Up for Free</Link>
       </Button>
     </section>
   );

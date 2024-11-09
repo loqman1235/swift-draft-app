@@ -55,7 +55,7 @@ const PlanCard = async ({ plan, className }: PlanCardProps) => {
         </div>
         {isCurrentPlan ? (
           <Button className="w-full" disabled>
-            Current Plan
+            Subscribed
           </Button>
         ) : (
           <PaymentLink
