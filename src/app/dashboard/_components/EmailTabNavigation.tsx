@@ -8,7 +8,7 @@ const EmailTabNavigation = () => {
 
   return (
     <div className="relative overflow-hidden rounded-lg shadow">
-      <div className="relative flex h-[60px] w-full items-center overflow-hidden rounded-tl-lg rounded-tr-lg bg-primary/10">
+      <div className="relative flex h-[60px] w-full items-center overflow-hidden rounded-tl-lg rounded-tr-lg bg-muted">
         <div
           className={`absolute left-0 h-full w-1/2 rounded-t-lg bg-foreground transition duration-300 ${activeTab === "reply" ? "translate-x-full" : "translate-x-0"}`}
         ></div>

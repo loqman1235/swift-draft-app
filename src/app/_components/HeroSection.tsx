@@ -9,7 +9,7 @@ const HeroSection = () => {
         Instantly <br />
         Create <span className="text-gradient">Professional</span> Emails
       </h1>
-      <p className="text-pretty text-base text-text-muted md:text-lg">
+      <p className="text-pretty text-base text-muted-foreground md:text-lg">
         Effortlessly generate professional emails tailored to your needs with
         the power of AI.
       </p>

@@ -34,7 +34,7 @@
     --navbar-height: 3.5rem;
 
     /* TEXTS */
-    --text-primary: 232 29% 15%;
+    --text-primary: 0 0% 20%;
     --text-muted: 216 21% 54%;
 
     /* GRADIENTS */
@@ -72,6 +72,9 @@
 @layer base {
   * {
     @apply border-border;
+  }
+  html {
+    @apply scroll-smooth;
   }
   body {
     @apply bg-background text-text-primary;

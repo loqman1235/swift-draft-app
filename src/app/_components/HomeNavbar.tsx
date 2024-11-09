@@ -25,6 +25,14 @@ const HomeNavbar = async () => {
             <li>
               <Link
                 className="font-semibold transition hover:text-primary"
+                href="#pricing"
+              >
+                Pricing
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="font-semibold transition hover:text-primary"
                 href="/"
               >
                 About

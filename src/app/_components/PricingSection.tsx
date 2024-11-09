@@ -3,11 +3,11 @@ import PlanCard from "./PlanCard";
 
 const PricingSection = () => {
   return (
-    <section className="min-h-screen p-10">
+    <section id="pricing" className="min-h-screen p-10">
       <div className="mx-auto flex max-w-5xl flex-col gap-10">
         <div className="w-full text-center">
           <h1 className="text-2xl font-bold tracking-tight">Plans & Pricing</h1>
-          <p className="text-pretty text-text-muted">
+          <p className="text-pretty text-muted-foreground">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </p>
         </div>

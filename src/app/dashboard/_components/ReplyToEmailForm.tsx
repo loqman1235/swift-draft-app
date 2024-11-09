@@ -32,7 +32,7 @@ const ReplyToEmailForm = () => {
         className="flex flex-col gap-5"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div className="flex w-full items-center gap-5">
+        <div className="flex w-full flex-col items-center gap-5 md:flex-row">
           <CustomFormField
             form={form}
             label="Your Name"
@@ -70,7 +70,7 @@ const ReplyToEmailForm = () => {
           description="Briefly describe the purpose of your email"
         />
 
-        <div className="flex w-full gap-5">
+        <div className="flex w-full flex-wrap gap-5 md:flex-nowrap">
           <CustomFormSelect
             form={form}
             label="Language"
