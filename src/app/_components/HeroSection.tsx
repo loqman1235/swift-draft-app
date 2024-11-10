@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const HeroSection = () => {
@@ -13,12 +14,10 @@ const HeroSection = () => {
         Effortlessly generate professional emails tailored to your needs with
         the power of AI.
       </p>
-      <Button
-        className="rounded-full py-6 text-base md:text-lg"
-        size="lg"
-        asChild
-      >
-        <Link href="/signup">Sign Up for Free</Link>
+      <Button className="py-6 text-base md:text-lg" size="lg" asChild>
+        <Link href="/signup">
+          Get Started Now <ArrowRight className="size-4" />
+        </Link>
       </Button>
     </section>
   );

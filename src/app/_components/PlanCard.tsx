@@ -33,7 +33,7 @@ const PlanCard = async ({ plan, className }: PlanCardProps) => {
   return (
     <div
       className={cn(
-        `w-full rounded-md border bg-foreground p-5 ${isCurrentPlan ? "border-primary" : "border-border"}`,
+        `w-full rounded-md border bg-foreground p-5 ${plan.isPopular ? "border-primary" : "border-border"}`,
         className,
       )}
     >
@@ -45,7 +45,7 @@ const PlanCard = async ({ plan, className }: PlanCardProps) => {
               {plan.isPopular && "Most Popular"}
             </Badge>
           </div>
-          <p className="text-3xl font-bold tracking-tight">
+          <p className="text-3xl font-bold tracking-tighter">
             {formatMoney(plan.price)}{" "}
             <span className="text-sm font-normal tracking-normal text-muted-foreground">
               {plan.period}
@@ -60,7 +60,8 @@ const PlanCard = async ({ plan, className }: PlanCardProps) => {
         ) : (
           <PaymentLink
             href={plan.href}
-            paymentLink={plan.paymentLink}
+            // paymentLink={plan.paymentLink}
+            priceId={plan.priceId || ""}
             text="Get Started"
             isLoggedIn={!!session?.user}
             email={session?.user?.email || ""}

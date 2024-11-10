@@ -26,6 +26,7 @@ export const plans = [
     ],
     href: "/signin",
     paymentLink: process.env.STRIPE_MONTHLY_PLAN_LINK!,
+    priceId: process.env.STRIPE_MONTHLY_PRICE_ID!,
     isPopular: true,
   },
   {
@@ -42,6 +43,7 @@ export const plans = [
     ],
     href: "/signin",
     paymentLink: process.env.STRIPE_YEARLY_PLAN_LINK!,
+    priceId: process.env.STRIPE_YEARLY_PRICE_ID!,
     isPopular: false,
   },
 ];

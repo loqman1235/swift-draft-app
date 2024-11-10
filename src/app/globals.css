@@ -83,6 +83,6 @@
 
 @layer utilities {
   .text-gradient {
-    @apply inline-block bg-gradient-to-r from-[var(--gradient-primary)] via-[var(--gradient-primary)] to-[var(--gradient-secondary)] bg-clip-text text-transparent;
+    @apply inline-block bg-gradient-to-r from-[var(--gradient-primary)] via-[var(--gradient-secondary)] to-[var(--gradient-primary)] bg-clip-text text-transparent;
   }
 }
