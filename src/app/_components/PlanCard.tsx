@@ -6,13 +6,19 @@ import PaymentLink from "./PaymentLink";
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
+import { Plan } from "@prisma/client";
 
 type PlanCardProps = {
   plan: (typeof plans)[number];
   className?: string;
+  userCurrentPlan: Plan;
 };
 
-const PlanCard = async ({ plan, className }: PlanCardProps) => {
+const PlanCard = async ({
+  plan,
+  className,
+  userCurrentPlan,
+}: PlanCardProps) => {
   const session = await auth();
   const user = await prisma.user.findUnique({
     where: {
@@ -53,9 +59,13 @@ const PlanCard = async ({ plan, className }: PlanCardProps) => {
           </p>
           <p className="text-sm text-muted-foreground">{plan.description}</p>
         </div>
-        {isCurrentPlan ? (
+        {isCurrentPlan ||
+        (session &&
+          session.user &&
+          plan.name === "Free" &&
+          userCurrentPlan === "free") ? (
           <Button className="w-full" disabled>
-            Subscribed
+            Active Plan
           </Button>
         ) : (
           <PaymentLink

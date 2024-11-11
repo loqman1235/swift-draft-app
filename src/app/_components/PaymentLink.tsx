@@ -3,6 +3,7 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { loadStripe } from "@stripe/stripe-js";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
@@ -23,6 +24,8 @@ const PaymentLink = ({
   isLoggedIn,
   email,
 }: PaymentLinkProps) => {
+  const router = useRouter();
+
   const handlCreateCheckoutSession = async (priceId: string, email: string) => {
     try {
       const stripe = await stripePromise;
@@ -46,7 +49,10 @@ const PaymentLink = ({
 
   if (!priceId) {
     return (
-      <Link href={href} className={buttonVariants()}>
+      <Link
+        href={isLoggedIn ? "/dashboard" : href}
+        className={buttonVariants()}
+      >
         {text}
       </Link>
     );
@@ -57,6 +63,7 @@ const PaymentLink = ({
       onClick={() => {
         if (priceId) {
           localStorage.setItem("stripePriceId", priceId);
+          router.push("/signin");
         }
 
         if (isLoggedIn && priceId) {
