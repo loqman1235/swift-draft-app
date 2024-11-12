@@ -10,7 +10,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
 const CallbackPage = () => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const handlCreateCheckoutSession = async (priceId: string, email: string) => {
     try {
@@ -34,14 +34,17 @@ const CallbackPage = () => {
   };
 
   useEffect(() => {
-    const stripePriceID = localStorage.getItem("stripePriceId");
-    if (session && session.user && stripePriceID) {
-      handlCreateCheckoutSession(stripePriceID, session.user.email as string);
-      localStorage.removeItem("stripePriceId");
-    } else if (session && session.user) {
-      router.push("/dashboard");
+    if (status === "authenticated") {
+      const stripePriceID = localStorage.getItem("stripePriceId");
+
+      if (stripePriceID && session?.user?.email) {
+        handlCreateCheckoutSession(stripePriceID, session.user.email);
+        localStorage.removeItem("stripePriceId");
+      } else {
+        router.push("/dashboard");
+      }
     }
-  }, [session, router]);
+  }, [status, session, router]);
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">

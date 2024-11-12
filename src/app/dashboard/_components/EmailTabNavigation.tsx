@@ -43,7 +43,7 @@ const EmailTabNavigation = () => {
             Write a reply
           </div>
         </div>
-        <div className="rounded-lg bg-foreground p-10">
+        <div className="rounded-lg bg-foreground p-5">
           {activeTab === "compose" ? (
             <CreateEmailForm onEmailGenerated={handleEmailGenerated} />
           ) : (
@@ -53,9 +53,9 @@ const EmailTabNavigation = () => {
       </div>
 
       {emailOutput && (
-        <div className="flex flex-col gap-2 rounded-md bg-foreground p-10 shadow">
+        <div className="flex flex-col gap-2 rounded-md bg-foreground p-5 shadow">
           <div
-            className="mt-5"
+            className="text-sm"
             dangerouslySetInnerHTML={{ __html: emailOutput }}
           />
         </div>

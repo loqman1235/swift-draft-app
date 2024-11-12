@@ -14,17 +14,18 @@ datasource db {
 }
 
 model User {
-  id            String        @id @default(cuid())
-  name          String?
-  email         String        @unique
-  password      String?
-  emailVerified DateTime?
-  image         String?
-  customerId    String?
-  plan          Plan          @default(free)
-  accounts      Account[]
-  sessions      Session[]
-  subscription  Subscription?
+  id              String        @id @default(cuid())
+  name            String?
+  email           String        @unique
+  password        String?
+  emailVerified   DateTime?
+  image           String?
+  customerId      String?
+  plan            Plan          @default(free)
+  generatedEmails Int           @default(0)
+  accounts        Account[]
+  sessions        Session[]
+  subscription    Subscription?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -13,6 +13,7 @@ declare module "next-auth" {
   interface Session {
     user: {
       plan: Plan;
+      generatedEmails: number;
     } & DefaultSession["user"];
   }
 }

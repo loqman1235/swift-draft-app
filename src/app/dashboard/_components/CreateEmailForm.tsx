@@ -3,6 +3,7 @@ import CustomFormField from "@/components/CustomFormField";
 import CustomFormSelect from "@/components/CustomFormSelect";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
 import { sanitizeContent } from "@/lib/utils";
 import { createEmailSchema, createEmailSchemaType } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,8 +18,8 @@ type CreateEmailFormProps = {
 
 const CreateEmailForm = ({ onEmailGenerated }: CreateEmailFormProps) => {
   const { data: session } = useSession();
+  const { toast } = useToast();
 
-  console.log(session);
   const form = useForm<createEmailSchemaType>({
     resolver: zodResolver(createEmailSchema),
     defaultValues: {
@@ -54,13 +55,28 @@ const CreateEmailForm = ({ onEmailGenerated }: CreateEmailFormProps) => {
 
       const data = await response.json();
       if (response.ok) {
+        //  TODO: Handle errors
+
         const sanitizedOutput = sanitizeContent(data.output);
         onEmailGenerated(sanitizedOutput);
+        form.reset();
       }
 
-      console.log(data);
+      if (response.status === 402) {
+        if (data.error) {
+          toast({
+            description: data.error,
+            variant: "destructive",
+          });
+          return;
+        }
+      }
     } catch (error) {
       console.log(error);
+      // Check if error is 402
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
     }
   };
 
