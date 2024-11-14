@@ -1,6 +1,8 @@
 import { auth } from "@/auth";
+import { FREE_PLAN_EMAILS } from "@/constants";
 import prisma from "@/lib/prisma";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { revalidatePath } from "next/cache";
 
 export const POST = async (req: Request) => {
   const session = await auth();
@@ -8,9 +10,15 @@ export const POST = async (req: Request) => {
   if (!session || !session.user)
     return new Response("Unauthorized", { status: 401 });
 
-  if (session.user.plan === "free" && session.user.generatedEmails >= 2)
+  if (
+    session.user.plan === "free" &&
+    session.user.generatedEmails >= FREE_PLAN_EMAILS
+  )
     return Response.json(
-      { error: "You have reached your email limit" },
+      {
+        error:
+          "You have reached your email limit. Upgrade your plan to generate more emails.",
+      },
       { status: 402 },
     );
 
@@ -35,6 +43,7 @@ export const POST = async (req: Request) => {
       },
     });
 
+    revalidatePath("/dashboard");
     return Response.json({ output: formattedOutput }, { status: 200 });
   } catch (error) {
     console.log(error);

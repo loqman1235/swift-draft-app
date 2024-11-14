@@ -3,7 +3,6 @@ import CustomFormField from "@/components/CustomFormField";
 import CustomFormSelect from "@/components/CustomFormSelect";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { useToast } from "@/hooks/use-toast";
 import { sanitizeContent } from "@/lib/utils";
 import { createEmailSchema, createEmailSchemaType } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +10,7 @@ import { LoaderCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 type CreateEmailFormProps = {
   onEmailGenerated: (email: string) => void;
@@ -18,7 +18,6 @@ type CreateEmailFormProps = {
 
 const CreateEmailForm = ({ onEmailGenerated }: CreateEmailFormProps) => {
   const { data: session } = useSession();
-  const { toast } = useToast();
 
   const form = useForm<createEmailSchemaType>({
     resolver: zodResolver(createEmailSchema),
@@ -64,10 +63,7 @@ const CreateEmailForm = ({ onEmailGenerated }: CreateEmailFormProps) => {
 
       if (response.status === 402) {
         if (data.error) {
-          toast({
-            description: data.error,
-            variant: "destructive",
-          });
+          toast(data.error, { className: "!bg-destructive !text-white" });
           return;
         }
       }
@@ -75,7 +71,7 @@ const CreateEmailForm = ({ onEmailGenerated }: CreateEmailFormProps) => {
       console.log(error);
       // Check if error is 402
       if (error instanceof Error) {
-        console.log(error.message);
+        console.log("error message", error.message);
       }
     }
   };

@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import Navbar from "./_components/Navbar";
 import Sidebar from "./_components/Sidebar";
 import { redirect } from "next/navigation";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 
 const DashboardLayout = async ({
   children,
@@ -18,7 +18,7 @@ const DashboardLayout = async ({
         <Navbar />
         <div className="p-5">{children}</div>
       </div>
-      <Toaster />
+      <Toaster duration={2000} />
     </main>
   );
 };
