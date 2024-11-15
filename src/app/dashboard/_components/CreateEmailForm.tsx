@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useEmailContext } from "../_context/EmailProvider";
 
 type CreateEmailFormProps = {
   onEmailGenerated: (email: string) => void;
@@ -18,6 +19,7 @@ type CreateEmailFormProps = {
 
 const CreateEmailForm = ({ onEmailGenerated }: CreateEmailFormProps) => {
   const { data: session } = useSession();
+  const { setEmailUsage } = useEmailContext();
 
   const form = useForm<createEmailSchemaType>({
     resolver: zodResolver(createEmailSchema),
@@ -54,8 +56,7 @@ const CreateEmailForm = ({ onEmailGenerated }: CreateEmailFormProps) => {
 
       const data = await response.json();
       if (response.ok) {
-        //  TODO: Handle errors
-
+        setEmailUsage((prev) => (prev === null ? null : prev - 1));
         const sanitizedOutput = sanitizeContent(data.output);
         onEmailGenerated(sanitizedOutput);
         form.reset();
