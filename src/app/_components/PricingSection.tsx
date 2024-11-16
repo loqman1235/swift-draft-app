@@ -11,7 +11,7 @@ const PricingSection = async () => {
         <div className="w-full text-center">
           <h1 className="text-2xl font-bold tracking-tight">Plans & Pricing</h1>
           <p className="text-pretty text-muted-foreground">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Choose a subscription plan that meets your needs.
           </p>
         </div>
 

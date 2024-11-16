@@ -4,6 +4,7 @@ import UserAvatar from "@/components/UserAvatar";
 // import UserAvatar from "@/components/UserAvatar";
 import { ZapIcon } from "lucide-react";
 import PlanInfoBadge from "./PlanInfoBadge";
+import Link from "next/link";
 
 const Navbar = async () => {
   const session = await auth();
@@ -18,9 +19,11 @@ const Navbar = async () => {
       {/* USER AVATAR */}
       <div className="flex items-center gap-5">
         {session.user.plan === "free" && (
-          <Button>
-            <ZapIcon className="size-5" />
-            Upgrade
+          <Button asChild>
+            <Link href="/dashboard/plan">
+              <ZapIcon className="size-5" />
+              Upgrade
+            </Link>
           </Button>
         )}
 

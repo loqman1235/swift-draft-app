@@ -24,8 +24,6 @@ export const EmailProvider = ({
         const response = await fetch(`/api/email-usage?userId=${userId}`);
         const data = await response.json();
 
-        console.log(data);
-
         setEmailUsage(data.emailsLeft);
       } catch (error) {
         console.error("Error fetching email usage:", error);

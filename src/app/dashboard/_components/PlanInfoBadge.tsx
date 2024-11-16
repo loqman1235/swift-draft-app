@@ -19,7 +19,9 @@ const PlanInfoBadge = ({ plan }: PlanCardProps) => {
         variant="secondary"
       >
         <span className="capitalize">{plan} </span>
-        {emailUsage && <span>( {emailUsage} emails left)</span>}
+        {emailUsage !== null && emailUsage > 0 && (
+          <span>( {emailUsage} emails left)</span>
+        )}
       </Badge>
     </div>
   );

@@ -15,8 +15,8 @@ const dashboardRoutes = [
   { icon: SquareActivityIcon, text: "Activity", href: "/activity" },
   {
     icon: CircleDollarSignIcon,
-    text: "Subscription & Billing",
-    href: "/subscription",
+    text: "Plans & Billing",
+    href: "/dashboard/plan",
   },
   { icon: SettingsIcon, text: "Settings", href: "/settings" },
 ] as const;
