@@ -30,7 +30,7 @@ const DashboardLinks = () => {
       {dashboardRoutes.map((route) => (
         <li key={route.href}>
           <Link
-            className={`flex items-center gap-5 rounded-lg px-3 py-4 text-text-muted transition hover:bg-primary/10 hover:text-primary ${pathname === route.href && activeClass}`}
+            className={`flex items-center gap-5 rounded-md px-3 py-3 text-text-muted transition hover:bg-primary/10 hover:text-primary ${pathname === route.href && activeClass}`}
             href={route.href}
           >
             <span>{<route.icon className="size-5" />}</span>
@@ -40,7 +40,7 @@ const DashboardLinks = () => {
       ))}
 
       <li className="mt-auto">
-        <button className="flex w-full items-center gap-5 rounded-lg px-3 py-4 text-text-muted transition hover:bg-primary/10 hover:text-primary">
+        <button className="flex w-full items-center gap-5 rounded-md px-3 py-3 text-text-muted transition hover:bg-primary/10 hover:text-primary">
           <span>{<LogOutIcon className="size-5" />}</span>
           <span className="font-semibold">Logout</span>
         </button>
