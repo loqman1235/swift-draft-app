@@ -47,7 +47,7 @@ const EmailTabNavigation = () => {
           {activeTab === "compose" ? (
             <CreateEmailForm onEmailGenerated={handleEmailGenerated} />
           ) : (
-            <ReplyToEmailForm />
+            <ReplyToEmailForm onEmailGenerated={handleEmailGenerated} />
           )}
         </div>
       </div>

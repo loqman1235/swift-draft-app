@@ -3,11 +3,24 @@ import CustomFormField from "@/components/CustomFormField";
 import CustomFormSelect from "@/components/CustomFormSelect";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { sanitizeContent } from "@/lib/utils";
 import { replyToEmailSchema, replyToEmailSchemaType } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { useEmailContext } from "../_context/EmailProvider";
+import { LoaderCircle } from "lucide-react";
 
-const ReplyToEmailForm = () => {
+type ReplyToEmailFormProps = {
+  onEmailGenerated: (email: string) => void;
+};
+
+const ReplyToEmailForm = ({ onEmailGenerated }: ReplyToEmailFormProps) => {
+  const { data: session } = useSession();
+  const { setEmailUsage } = useEmailContext();
+
   const form = useForm<replyToEmailSchemaType>({
     resolver: zodResolver(replyToEmailSchema),
     defaultValues: {
@@ -23,8 +36,51 @@ const ReplyToEmailForm = () => {
   });
 
   const onSubmit = async (values: replyToEmailSchemaType) => {
-    console.log(values);
+    const prompt = `
+    Reply to the following email in ${values.lang} language:
+    ${values.receivedEmail}
+
+    The tone should be ${values.tone}.
+    The mood should be ${values.mood}.
+    The length should be ${values.length}.
+    The email should be written by ${values.username}.
+    ${values.description}.
+    Use these sections and no extra information outside the email format. 
+    `;
+
+    try {
+      const response = await fetch("/api/generate-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setEmailUsage((prev) => (prev === null ? null : prev - 1));
+        const sanitizedOutput = sanitizeContent(data.output);
+        onEmailGenerated(sanitizedOutput);
+        form.reset();
+      }
+
+      if (response.status === 402) {
+        if (data.error) {
+          toast(data.error, { className: "!bg-destructive !text-white" });
+          return;
+        }
+      }
+    } catch (error) {
+      console.error("Error generating email:", error);
+    }
   };
+
+  useEffect(() => {
+    if (session?.user.name) {
+      form.setValue("username", session.user.name);
+    }
+  }, [session, form]);
 
   return (
     <Form {...form}>
@@ -122,8 +178,20 @@ const ReplyToEmailForm = () => {
           />
         </div>
 
-        <Button className="w-fit" size="lg" type="submit">
-          Write Reply
+        <Button
+          disabled={form.formState.isSubmitting}
+          className="w-fit"
+          size="lg"
+          type="submit"
+        >
+          {form.formState.isSubmitting ? (
+            <span className="flex items-center gap-2">
+              <LoaderCircle className="size-4 animate-spin" /> Generating
+              Reply...
+            </span>
+          ) : (
+            "Write Reply"
+          )}
         </Button>
       </form>
     </Form>
