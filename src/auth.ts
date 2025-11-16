@@ -1,5 +1,3 @@
-export const runtime = "nodejs";
-
 import NextAuth, { type DefaultSession } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
@@ -23,41 +21,50 @@ declare module "next-auth" {
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
-    Github,
-    Google,
+    Github({
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
     Credentials({
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-
       async authorize(credentials) {
         if (!credentials.email || !credentials.password) {
           return null;
         }
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email as string,
-          },
-        });
+        try {
+          const user = await prisma.user.findUnique({
+            where: {
+              email: credentials.email as string,
+            },
+          });
 
-        if (
-          !user ||
-          !(await bcrypt.compare(
-            credentials.password as string,
-            user.password as string,
-          ))
-        ) {
+          if (
+            !user ||
+            !(await bcrypt.compare(
+              credentials.password as string,
+              user.password as string,
+            ))
+          ) {
+            return null;
+          }
+
+          return user;
+        } catch (error) {
+          console.error("Auth error:", error);
           return null;
         }
-
-        return user;
       },
     }),
   ],
-
   callbacks: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async jwt({ token, user, account }) {
@@ -67,12 +74,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
   },
-
   jwt: {
     encode: async function (params) {
       if (params.token?.credentials) {
         const sessionToken = uuid();
-
         if (!params.token.sub) {
           throw new Error("No user ID found in token");
         }
@@ -87,11 +92,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Failed to create session");
         }
 
-        console.log("SESSIION", sessionToken);
-
+        console.log("SESSION", sessionToken);
         return sessionToken;
       }
       return defaultEncode(params);
     },
   },
+  // Add these for better error handling during build
+  secret: process.env.AUTH_SECRET,
+  trustHost: true,
 });
