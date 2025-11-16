@@ -1,3 +1,5 @@
+export const runtime = "node";
+
 import prisma from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
