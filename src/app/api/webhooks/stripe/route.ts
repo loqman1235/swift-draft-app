@@ -1,4 +1,4 @@
-export const runtime = "node";
+export const runtime = "nodejs";
 
 import prisma from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
