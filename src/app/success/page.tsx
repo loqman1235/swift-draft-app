@@ -3,9 +3,9 @@
 import { ArrowRight, CheckIcon, LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { redirect, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
-const SuccessPage = () => {
+function SuccessContent() {
   const searchParams = useSearchParams();
   const session_id = searchParams.get("session_id");
   const [status, setStatus] = useState("");
@@ -71,5 +71,25 @@ const SuccessPage = () => {
       )}
     </div>
   );
+}
+
+function LoadingFallback() {
+  return (
+    <div className="flex h-[calc(100vh-3.5rem)] w-full items-center justify-center">
+      <div className="flex flex-col items-center gap-2">
+        <LoaderCircle className="size-5 animate-spin" />
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    </div>
+  );
+}
+
+const SuccessPage = () => {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <SuccessContent />
+    </Suspense>
+  );
 };
+
 export default SuccessPage;
